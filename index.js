@@ -1,6 +1,6 @@
 import mystyles from "./code.js";
 
-(function() {
+function mainentry() {
 	var openComment, time, writeStyleChar, writeStyles;
 	var styles = mystyles;
 
@@ -48,23 +48,34 @@ import mystyles from "./code.js";
 
 	$("body").append(
 		`<style id="style-tag"></style>
-        <span id="echo"></span>
-        <span id="heart">
-            <i></i>
-        </span>
-        <pre id="style-text"></pre>`
+        <span hidden id="echo"></span>
+        <pre contenteditable id="style-text"></pre>`
 	);
 
-	time = window.innerWidth <= 578 ? 4 : 5;
+	time = window.innerWidth <= 578 ? 4 : 1;
 	// time = window.innerWidth <= 578 ? 4 : 16;
 
 	writeStyles(styles, 0, time);
-}.call(this));
+
+};
+mainentry();
+
+// $(document).on('mousemove', (event) => {
+//     $('.follower').css({
+//       left: event.clientX,
+//       top: event.clientY,
+//     });
+// });
 
 
-$(document).on('mousemove', (event) => {
-    $('.follower').css({
-      left: event.clientX,
-      top: event.clientY,
-    });
-});
+function onedit() {
+  $( "pre" ).on('DOMSubtreeModified', function () {
+    var textArea = document.createElement("textarea");
+    textArea.value = $(this).text();
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("Copy");
+    textArea.remove();
+  })
+  .change();
+}
