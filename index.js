@@ -1,6 +1,7 @@
 import mystyles from "./code.js";
 
-function mainentry() {
+let myPromise = new Promise((resolve, reject) => {
+
 	var openComment, time, writeStyleChar, writeStyles;
 	var styles = mystyles;
 
@@ -43,6 +44,8 @@ function mainentry() {
 			return setTimeout(function () {
 				return writeStyles(message, index, interval);
 			}, interval);
+		} else {
+			resolve("success");
 		}
 	};
 
@@ -57,8 +60,8 @@ function mainentry() {
 
 	writeStyles(styles, 0, time);
 
-};
-mainentry();
+});
+
 
 // $(document).on('mousemove', (event) => {
 //     $('.follower').css({
@@ -68,14 +71,14 @@ mainentry();
 // });
 
 
-function onedit() {
-  $( "pre" ).on('DOMSubtreeModified', function () {
-    var textArea = document.createElement("textarea");
-    textArea.value = $(this).text();
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand("Copy");
-    textArea.remove();
-  })
-  .change();
-}
+myPromise.then((value)=> {
+	console.log(value);
+	$( "pre" ).on('DOMSubtreeModified', function () {
+		var textArea = document.createElement("textarea");
+		textArea.value = $(this).text();
+		document.body.appendChild(textArea);
+		$("#style-tag").html($("textarea").val());
+		textArea.remove();
+	})
+	.change();
+});

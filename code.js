@@ -4,6 +4,10 @@ var mystyles = `
 * I am a web developer
 */
 
+* {
+    transition-duration: 200ms;
+}
+
 body {
     background-color: #1a1c24; 
     color: #fff;
